@@ -30,7 +30,7 @@ public class GUI_Default extends JFrame implements MouseListener, Observer{
 	private GUI_Default() {
 		//create mainWindow
 		mainWindow = new JFrame("TheAllBrowser");
-		mainWindow.setSize(Layout.PROGRAM_SIZE_X_AXIS, Layout.PROGRAM_SIZE_Y_AXIS);
+		mainWindow.setSize(Layout.SIZE_PROGRAM_X_AXIS, Layout.SIZE_PROGRAM_Y_AXIS);
 		mainWindow.setDefaultCloseOperation(javax.swing.JFrame.EXIT_ON_CLOSE);	
 		//mainWindow.addMouseListener(createMouseListener());
 		mainWindow.addMouseListener(mouseListener);

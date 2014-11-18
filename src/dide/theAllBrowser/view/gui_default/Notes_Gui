@@ -1,0 +1,31 @@
+GUI_Default
+	//obere Bildschirmhälfte
+	JPanel oben
+	//lower half of screen
+	JPanel unten
+	
+	//oben
+		JPanel oben_Oben;	
+			JPanel display
+				//explorer
+				ExplorerPanel extends JPanel explorer1,2,3...;
+					JPanel backButton;
+					JPanel openNewExplorer;
+					JPanel display;
+		
+		JPanel oben_Unten;
+			JPanel navigation;
+				//cd ..
+				JButton backButton;
+				JButton openAnotherExplorer;
+				JButton selectDir;
+				JButton rootDir;
+				JButton quickChoseFromFavorites;
+				JButton fav1,2,3,...
+			
+				
+		
+
+
+
+	

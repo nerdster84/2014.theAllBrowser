@@ -24,8 +24,9 @@ public class Module extends JPanel{
 		color_background = Color.WHITE;
 		color_font = Color.BLACK;
 		color_frame = Color.BLACK;
-		setBackground(color_background);
-		setForeground(color_font);
+		this.setBackground(color_background);
+		this.setForeground(color_font);
+		
 	}
 
 //	protected void addSubPanel(Object type) {
