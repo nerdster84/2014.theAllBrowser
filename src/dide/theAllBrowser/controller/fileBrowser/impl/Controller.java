@@ -24,6 +24,7 @@ public class Controller extends Observable implements IController{
 		try {
 			fileArray = dir.listFiles();
 		} catch (Exception e) {
+			System.err.println("fileArray konnte nicht erzeugt werden");
 			e.printStackTrace();
 		}
 		return(fileArray);
@@ -32,8 +33,14 @@ public class Controller extends Observable implements IController{
 	private String createStringFromFileList(File[] files) {
 		StringBuilder sb = new StringBuilder();
 		for (File file : files) {
-			sb.append(file.getName());
-			sb.append("\n");
+			if (file.isFile()) {
+				sb.append(file.getName());
+			} else if (file.isDirectory()) {
+				sb.append(file.getAbsolutePath());
+			}
+				
+				sb.append("\n");
+			
 		}
 		String result = null;
 		result = sb.toString();
@@ -42,7 +49,10 @@ public class Controller extends Observable implements IController{
 
 	@Override
 	public String getFilesOfDir(File dir) {
-		String result = createStringFromFileList(getFileArrayFromDir(dir));		
+		if (dir == null) {
+			throw new NullPointerException("Argument dir falsch.");
+		}
+		String result = createStringFromFileList(getFileArrayFromDir(dir));
 		return result;
 		
 	}
