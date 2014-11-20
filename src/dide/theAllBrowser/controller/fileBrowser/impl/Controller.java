@@ -32,7 +32,7 @@ public class Controller extends Observable implements IController{
 	}
 	
 	@Override
-	public String getCurrentFolder() {
+	public String getDir() {
 		return fileOperations.getCurrentDir();
 	}
 
@@ -41,14 +41,11 @@ public class Controller extends Observable implements IController{
 	@Override
 	public void setDefaultFolder(String path) {
 		fileOperations.setDefaultDir(path);
-		this.notifyObservers();
 	}
 	
 	@Override
-	public void setCurrentFolder(String path) {
-		fileOperations.setCurrenctDir(path);
-		//dem notify.. noch einen Event als Argument übergeben
-		this.notifyObservers();
+	public void setDir(String path) {
+		fileOperations.setDir(path);
 	}
 	
 }

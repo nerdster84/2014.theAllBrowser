@@ -1,6 +1,5 @@
-Nächste Schritte:
+weitere Button mit Funktionalität ausstatten
+Spass haben :)
 
-update()-Methode von IObserver umsetzen:
+bald Tests schreiben  
 
-	Panel müssen neu gezeichnet werden
-		-> daher müssen clevere repaintPanel() Methoden geschrieben werden pro Panel-Klasse (vielleicht nur für ein paar dieser Klassen?)

@@ -38,18 +38,17 @@ public class ExplorerPanel extends JPanel implements IObserver{
 					openNewExplorer,		
 					display;		//container for folderDisplay
 	private JTextArea folderDisplay; //displays the given text
-	private JButton backButton;		//cd ..
-	JTextField textField_title;		//display's the path of currentDir
-//	private String 	currentFolder,
-//	defaultFolder;
+	private JButton backButton, 		//cd ..
+					prevButtonPanel;	//go the OLDPWD		
+	private JTextField textField_title;		//display's the path of currentDir
 	
 	//Constructor
 	public ExplorerPanel(IController controller) {
 			this.controller = controller;
 			buildPanel();
-			controller.setCurrentFolder(controller.getDefaultFolder());
+			controller.setDir(controller.getDefaultFolder());
 			this.controller.addObserver(this);
-			this.controller.setCurrentFolder(controller.getDefaultFolder());
+			this.controller.setDir(controller.getDefaultFolder());
 			this.setSize(Layout.DIM_EXPLORERPANEL_STD);
 			this.setMaximumSize(Layout.DIM_MAX);
 			this.setMinimumSize(Layout.DIM_EXPLORERPANEL_SMALL);
@@ -63,7 +62,7 @@ public class ExplorerPanel extends JPanel implements IObserver{
 
 		//add title-line: displays path of current working directory
 		textField_title = new JTextField();
-		textField_title.setText(controller.getCurrentFolder());
+		textField_title.setText(controller.getDir());
 		textField_title.setEditable(false);
 		GridBagConstraints gc = new GridBagConstraints();
 		gc.weightx = 1;
@@ -90,13 +89,13 @@ public class ExplorerPanel extends JPanel implements IObserver{
 			public void mouseEntered(MouseEvent e) {}
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				String path = controller.getCurrentFolder();
+				String path = controller.getDir();
 				File parent = new File(path);
 				if (parent.getParentFile() != null) {
 					parent = parent.getParentFile();
 				}
 				path = parent.toString();
-				controller.setCurrentFolder(path);
+				controller.setDir(path);
 				controller.notifyObservers();
 			} });	
 		
@@ -109,11 +108,22 @@ public class ExplorerPanel extends JPanel implements IObserver{
 		gc.fill = GridBagConstraints.BOTH;
 		actualPanel.add(backButtonPanel, gc);
 		
+//		prevButtonPanel.add(backButton);
+		gc = new GridBagConstraints();
+		gc.anchor = GridBagConstraints.LINE_START;
+		gc.gridx = 0;
+		gc.gridy = 0;
+		gc.weightx = 0.2;
+		gc.fill = GridBagConstraints.BOTH;
+		actualPanel.add(backButtonPanel, gc);
+		
+		
+		
 		//add display-panel for the actual folder-view
 		folderDisplay = new JTextArea();
 		//folderDisplay.setText("Hier kommt der Ordnerinhalt rein...");
-		File dir = new File(controller.getCurrentFolder());
-		folderDisplay.setText(controller.getFilesOfDir(controller.getCurrentFolder()));
+		File dir = new File(controller.getDir());
+		folderDisplay.setText(controller.getFilesOfDir(controller.getDir()));
 		folderDisplay.setLineWrap(true);
 		folderDisplay.setBorder(Layout.BORDER_STD);
 		gc = new GridBagConstraints();
@@ -135,10 +145,8 @@ public class ExplorerPanel extends JPanel implements IObserver{
 
 	@Override
 	public void update(Event e) {
-		textField_title.setText(controller.getCurrentFolder());
-		folderDisplay.setText(controller.getCurrentFolder());
-		repaint();
-		validate();
+		textField_title.setText(controller.getDir());
+		folderDisplay.setText(controller.getDir());
 	}
 	
 }

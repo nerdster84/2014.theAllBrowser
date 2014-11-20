@@ -78,12 +78,12 @@ public class FileBrowser extends Module implements IObserver{
 		setPreferredSize(size_pref);
 		setMaximumSize(size_max);
 		setMinimumSize(size_min);
-		repaint();
-		validate();
+		//repaint();
+		//validate();
 	}
 	
 	public void update() {
-		this.fileListTextPane.setText(controller.getFilesOfDir(controller.getCurrentFolder()));
+		this.fileListTextPane.setText(controller.getFilesOfDir(controller.getDir()));
 	}
 	
 	private void buildAddLayoutComponents() {
@@ -151,7 +151,6 @@ public class FileBrowser extends Module implements IObserver{
 		this.setMinimumSize(Layout.DIM_GUIDEFAULT_SMALL);
 		this.setMaximumSize(Layout.DIM_GUIDEFAULT_BIG);
 		
-		
 //		//add fileListPanel
 //		fileListPanel = new Module();
 //		fileListPanel.setLayout(new BoxLayout(fileListPanel,BoxLayout.LINE_AXIS));
@@ -175,8 +174,6 @@ public class FileBrowser extends Module implements IObserver{
 
 	@Override
 	public void update(Event e) {
-//		this.repaint();
-		this.validate();
 	}
 	
 }

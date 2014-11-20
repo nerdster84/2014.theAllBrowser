@@ -3,6 +3,7 @@ package dide.theAllBrowser.model.fileBrowser.impl;
 import java.io.File;
 import java.io.PrintStream;
 import java.lang.IllegalArgumentException;
+
 import javax.swing.JFrame;
 
 import dide.theAllBrowser.model.fileBrowser.IFileOperations;
@@ -12,16 +13,22 @@ public class FileOperations implements IFileOperations {
 	private static String defaultDir;
 	private static String currentDir;
 	private static String defaultFolderString;
+	private static String oldPwd;
 	
 	//Constructor
 	public FileOperations() {
 		defaultFolderString = "c:\\test";
 		defaultDir = defaultFolderString;
 		currentDir = defaultDir;
-		
+		oldPwd = defaultDir;
 	}
 
 	//GETTERS
+
+	@Override
+	public String getoldPwd() {
+		return getFilesOfDir(oldPwd);
+	}
 	
 	@Override
 	public String getFilesOfDir(String dir) {
@@ -79,24 +86,24 @@ public class FileOperations implements IFileOperations {
 
 	//SETTERS
 	
-	@Override
-	public void setCurrenctDir(String dir) {
-		File file = null;
-		try {
-			file = new File(dir);
-		} catch (Exception e) {
-			System.err.println("dir konnte nicht zu file gecastet werden");
-			e.printStackTrace();
-			System.exit(JFrame.EXIT_ON_CLOSE);
-		}
-		
-		if (file.isDirectory()) {
-			currentDir = dir;
-		} else {
-			System.out.println("currentDir konnte nicht neu gesetzt werden");
-			System.exit(JFrame.EXIT_ON_CLOSE);
-		}
-	}
+//	@Override
+//	public void setCurrenctDir(String dir) {
+//		File file = null;
+//		try {
+//			file = new File(dir);
+//		} catch (Exception e) {
+//			System.err.println("dir konnte nicht zu file gecastet werden");
+//			e.printStackTrace();
+//			System.exit(JFrame.EXIT_ON_CLOSE);
+//		}
+//		
+//		if (file.isDirectory()) {
+//			currentDir = dir;
+//		} else {
+//			System.out.println("currentDir konnte nicht neu gesetzt werden");
+//			System.exit(JFrame.EXIT_ON_CLOSE);
+//		}
+//	}
 
 	@Override
 	public String getDefaultDir() {
@@ -126,6 +133,11 @@ public class FileOperations implements IFileOperations {
 			System.exit(JFrame.EXIT_ON_CLOSE);
 		}
 		currentDir = dir;
+	}
+
+	@Override
+	public void setOldPwd(String dir) {
+		setDir(dir);
 	}
 
 }

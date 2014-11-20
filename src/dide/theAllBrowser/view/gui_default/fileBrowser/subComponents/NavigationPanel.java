@@ -60,7 +60,6 @@ public class NavigationPanel extends JPanel implements IObserver{
 
 	@Override
 	public void update(Event e) {
-
-		
 	}
+	
 }

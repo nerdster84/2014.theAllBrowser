@@ -11,10 +11,10 @@ public interface IController extends IObservable{
 	
 	//GETTERS
 	String getDefaultFolder();
-	String getCurrentFolder();
+	String getDir();
 	String getFilesOfDir(String path);
 	
 	//SETTERS
-	void setCurrentFolder(String path);
+	void setDir(String path);
 	void setDefaultFolder(String path);
 }

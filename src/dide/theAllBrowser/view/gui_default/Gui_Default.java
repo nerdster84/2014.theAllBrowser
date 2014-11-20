@@ -27,7 +27,9 @@ public class Gui_Default extends JFrame implements IObserver{
 
 	//Constructor
 	private Gui_Default(IController controller) {
-		//create mainWindow
+	
+	//CREATE MAINWINDOW
+	
 		mainWindow = new JFrame("TheAllBrowser");
 		mainWindow.setDefaultCloseOperation(javax.swing.JFrame.EXIT_ON_CLOSE);	
 		layout = new GridBagLayout();
@@ -40,14 +42,12 @@ public class Gui_Default extends JFrame implements IObserver{
 		mainWindow.setMaximumSize(size_max);
 		this.controller = controller;
 		
-		//Add Modules to mainWindow
+	//ADD MODULES TO MAINWINDOW
+
+		//ADD MODULE FILEBROWSER
 		Module fileBrowser = new FileBrowser("File Browser", controller);
 		GridBagConstraints constraints_fileBrowser = new GridBagConstraints();
-//		constraints_fileBrowser.gridwidth = 1;
-//		constraints_fileBrowser.gridheight = 1;
 		mainWindow.getContentPane().add(fileBrowser, constraints_fileBrowser);
-		
-		//repaint();
 		mainWindow.setVisible(true);
 		validate();
 		//pack();
@@ -64,7 +64,7 @@ public class Gui_Default extends JFrame implements IObserver{
 	
 	@Override
 	public void update(Event e) {
-		getInstance().validate();
+		//getInstance().validate();
 	}
 }
 
