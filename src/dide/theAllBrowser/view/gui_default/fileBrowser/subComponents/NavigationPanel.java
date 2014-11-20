@@ -7,10 +7,14 @@ import javax.swing.BoxLayout;
 import javax.swing.JButton;
 import javax.swing.JPanel;
 
+import dide.theAllBrowser.controller.fileBrowser.IController;
+import dide.theAllBrowser.util.observer.Event;
+import dide.theAllBrowser.util.observer.IObserver;
 import dide.theAllBrowser.view.Layout;
 
-public class NavigationPanel extends JPanel{
+public class NavigationPanel extends JPanel implements IObserver{
 
+	IController controller;
 	LayoutManager layout;
 	JButton backButton,
 			newExplorer,
@@ -21,16 +25,16 @@ public class NavigationPanel extends JPanel{
 			fav2;
 	
 	
-	public NavigationPanel() {
-		
-		
+	public NavigationPanel(IController controller) {
+		//this.controller = controller;
+		//this.controller.addObserver(this);
 		buildPanel();
 	}
 	
 	private void buildPanel() {
 		//layout = new BoxLayout(this, BoxLayout.X_AXIS);
 		layout = new GridLayout(1,10); 
-				
+		
 		this.setLayout(layout);
 		backButton = new JButton("back");
 		newExplorer  = new JButton("newExplorer");
@@ -52,5 +56,11 @@ public class NavigationPanel extends JPanel{
 //		this.setMaximumSize(Layout.DIM_EXPLORERPANEL_BIG);
 //		this.setBorder(Layout.BORDER_PANEL_NAVIGATIONPANEL);
 		this.setVisible(true);
+	}
+
+	@Override
+	public void update(Event e) {
+
+		
 	}
 }

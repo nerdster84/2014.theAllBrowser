@@ -19,6 +19,7 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextPane;
 
+import dide.theAllBrowser.controller.fileBrowser.IController;
 import dide.theAllBrowser.controller.fileBrowser.impl.Controller;
 import dide.theAllBrowser.model.Module;
 import dide.theAllBrowser.util.observer.Event;
@@ -49,14 +50,13 @@ import dide.theAllBrowser.view.gui_default.fileBrowser.subComponents.NavigationP
 
 public class FileBrowser extends Module implements IObserver{
 	
-	private Controller controller = new Controller();
+	private IController controller;
 	private LayoutManager layout;
 	private JPanel upperHalf,
 			lowerHalf;
 	private Module screenPanel,
 			fileListPanel;
 	private JTextPane fileListTextPane = new JTextPane();
-	private File activeFolder = null;
 	private String pathImageDormund = "G:/=DOWNLOADS/new Bilder/oh du sch�ner bvb.jpg";
 	private String browseFirst = "C:/test/theAllBrowser/niceDirectory";
 	private Image dortmund;
@@ -69,19 +69,21 @@ public class FileBrowser extends Module implements IObserver{
 
 	
 	//Constructor
-	public FileBrowser(String title) {
-		this.setName(title);
+	public FileBrowser(String title, IController controller) {
+		setName(title);
+		this.controller = controller;
+		this.controller.addObserver(this);
 		buildAddLayoutComponents();
-		this.setVisible(true);
-		this.setPreferredSize(size_pref);
-		this.setMaximumSize(size_max);
-		this.setMinimumSize(size_min);
+		setVisible(true);
+		setPreferredSize(size_pref);
+		setMaximumSize(size_max);
+		setMinimumSize(size_min);
 		repaint();
 		validate();
 	}
 	
 	public void update() {
-		this.fileListTextPane.setText(controller.getFilesOfDir(activeFolder));
+		this.fileListTextPane.setText(controller.getFilesOfDir(controller.getCurrentFolder()));
 	}
 	
 	private void buildAddLayoutComponents() {
@@ -99,11 +101,11 @@ public class FileBrowser extends Module implements IObserver{
 			explorerView.setLayout(new BoxLayout(explorerView, BoxLayout.X_AXIS));
 			//explorerView.setPreferredSize(Layout.DIM_GUIDEFAULT_STD);
 			//add folders to the JPanel explorerView 
-			ExplorerPanel explorer1 = new ExplorerPanel("");
+			ExplorerPanel explorer1 = new ExplorerPanel(controller);
 			explorerView.add(explorer1);
-			ExplorerPanel explorer2 = new ExplorerPanel("");
+			ExplorerPanel explorer2 = new ExplorerPanel(controller);
 			explorerView.add(explorer2);
-			ExplorerPanel explorer3 = new ExplorerPanel("");
+			ExplorerPanel explorer3 = new ExplorerPanel(controller);
 			explorerView.add(explorer3);
 			GridBagConstraints constrExplorerPanel = new GridBagConstraints();
 			constrExplorerPanel.gridx = 0;
@@ -114,7 +116,7 @@ public class FileBrowser extends Module implements IObserver{
 			upperHalf.add(explorerView, constrExplorerPanel);
 			
 		//Navigation-Panel
-			NavigationPanel navigationPanel = new NavigationPanel();
+			NavigationPanel navigationPanel = new NavigationPanel(controller);
 			GridBagConstraints constrNavPanel = new GridBagConstraints();
 			constrNavPanel.gridx = 0;
 			constrNavPanel.gridy = 1;

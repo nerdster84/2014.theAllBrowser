@@ -1,0 +1,6 @@
+Nächste Schritte:
+
+update()-Methode von IObserver umsetzen:
+
+	Panel müssen neu gezeichnet werden
+		-> daher müssen clevere repaintPanel() Methoden geschrieben werden pro Panel-Klasse (vielleicht nur für ein paar dieser Klassen?)

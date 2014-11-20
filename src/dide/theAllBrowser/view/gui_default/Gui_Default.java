@@ -4,9 +4,12 @@ import java.awt.Dimension;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.LayoutManager;
+
 import javax.swing.JFrame;
 
 import dide.theAllBrowser.application.First;
+import dide.theAllBrowser.controller.fileBrowser.IController;
+import dide.theAllBrowser.controller.fileBrowser.impl.Controller;
 import dide.theAllBrowser.model.Module;
 import dide.theAllBrowser.view.*;
 import dide.theAllBrowser.view.gui_default.fileBrowser.FileBrowser;
@@ -20,9 +23,10 @@ public class Gui_Default extends JFrame implements IObserver{
 	private Dimension size_min,
 						size_max,
 						size_pref;
+	private IController controller;
 
 	//Constructor
-	private Gui_Default() {
+	private Gui_Default(IController controller) {
 		//create mainWindow
 		mainWindow = new JFrame("TheAllBrowser");
 		mainWindow.setDefaultCloseOperation(javax.swing.JFrame.EXIT_ON_CLOSE);	
@@ -34,9 +38,10 @@ public class Gui_Default extends JFrame implements IObserver{
 		mainWindow.setPreferredSize(size_pref);
 		mainWindow.setMinimumSize(size_min);
 		mainWindow.setMaximumSize(size_max);
+		this.controller = controller;
 		
 		//Add Modules to mainWindow
-		Module fileBrowser = new FileBrowser("File Browser");
+		Module fileBrowser = new FileBrowser("File Browser", controller);
 		GridBagConstraints constraints_fileBrowser = new GridBagConstraints();
 //		constraints_fileBrowser.gridwidth = 1;
 //		constraints_fileBrowser.gridheight = 1;
@@ -48,11 +53,12 @@ public class Gui_Default extends JFrame implements IObserver{
 		//pack();
 	}
 
+	//Singleton: getInstance calls a private constructor
 	public static JFrame getInstance() {
 		if (mainWindow != null) {
 			return(mainWindow);
 		} else {
-			return(new Gui_Default());
+			return(new Gui_Default(new Controller()));
 		}
 	}
 	

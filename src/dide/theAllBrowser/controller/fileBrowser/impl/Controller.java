@@ -1,65 +1,53 @@
 package dide.theAllBrowser.controller.fileBrowser.impl;
 
-import java.io.File;
+import java.io.File; 
 import java.util.List;
-import java.util.Observer;
-import java.util.Observable;
 
+import dide.theAllBrowser.util.observer.Event;
+import dide.theAllBrowser.util.observer.Observable;
 import dide.theAllBrowser.controller.fileBrowser.*;
 import dide.theAllBrowser.model.fileBrowser.impl.FileOperations;
 
 public class Controller extends Observable implements IController{
 
+	private FileOperations fileOperations;
+	
+	//Constructor
 	public Controller() {
-	}
-	public void update() {
+		fileOperations = new FileOperations();
 	}
 	
-	private File[] getFileArrayFromDir(File dir) {
-		if (! dir.isDirectory()) {
-			System.out.println("Directory could not be read.");
-			return(null);
-		}
-		File[] fileArray = null;
-		try {
-			fileArray = dir.listFiles();
-		} catch (Exception e) {
-			System.err.println("fileArray konnte nicht erzeugt werden");
-			e.printStackTrace();
-		}
-		return(fileArray);
-	}
-
-	private String createStringFromFileList(File[] files) {
-		StringBuilder sb = new StringBuilder();
-		for (File file : files) {
-			if (file.isFile()) {
-				sb.append(file.getName());
-			} else if (file.isDirectory()) {
-				sb.append(file.getAbsolutePath());
-			}
-				
-				sb.append("\n");
-			
-		}
-		String result = null;
-		result = sb.toString();
+	//GETTERS
+	
+	@Override
+	public String getFilesOfDir(String path) {
+		String result;
+		result = fileOperations.getFilesOfDir(path);
 		return result;
 	}
 
 	@Override
-	public String getFilesOfDir(File dir) {
-		if (dir == null) {
-			throw new NullPointerException("Argument dir falsch.");
-		}
-		String result = createStringFromFileList(getFileArrayFromDir(dir));
-		return result;
-		
+	public String getDefaultFolder() {
+		return fileOperations.getDefaultDir();
+	}
+	
+	@Override
+	public String getCurrentFolder() {
+		return fileOperations.getCurrentDir();
 	}
 
+	//SETTERS
 	
+	@Override
+	public void setDefaultFolder(String path) {
+		fileOperations.setDefaultDir(path);
+	}
 	
-
-	
+	@Override
+	public void setCurrentFolder(String path) {
+		fileOperations.setCurrenctDir(path);
+		//dem notify.. noch einen Event als Argument übergeben
+		this.notifyObservers();
+	}
 	
 }
