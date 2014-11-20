@@ -175,7 +175,7 @@ public class FileBrowser extends Module implements IObserver{
 
 	@Override
 	public void update(Event e) {
-		this.repaint();
+//		this.repaint();
 		this.validate();
 	}
 	

@@ -41,6 +41,7 @@ public class Controller extends Observable implements IController{
 	@Override
 	public void setDefaultFolder(String path) {
 		fileOperations.setDefaultDir(path);
+		this.notifyObservers();
 	}
 	
 	@Override

@@ -36,7 +36,8 @@ public class ExplorerPanel extends JPanel implements IObserver{
 					actualPanel,
 					backButtonPanel, 	//Panel for button for cd ..
 					openNewExplorer,		
-					display;		//shows folder's content
+					display;		//container for folderDisplay
+	private JTextArea folderDisplay; //displays the given text
 	private JButton backButton;		//cd ..
 	JTextField textField_title;		//display's the path of currentDir
 //	private String 	currentFolder,
@@ -91,7 +92,9 @@ public class ExplorerPanel extends JPanel implements IObserver{
 			public void mouseClicked(MouseEvent e) {
 				String path = controller.getCurrentFolder();
 				File parent = new File(path);
-				parent = parent.getParentFile();
+				if (parent.getParentFile() != null) {
+					parent = parent.getParentFile();
+				}
 				path = parent.toString();
 				controller.setCurrentFolder(path);
 				controller.notifyObservers();
@@ -107,7 +110,7 @@ public class ExplorerPanel extends JPanel implements IObserver{
 		actualPanel.add(backButtonPanel, gc);
 		
 		//add display-panel for the actual folder-view
-		JTextArea folderDisplay = new JTextArea();
+		folderDisplay = new JTextArea();
 		//folderDisplay.setText("Hier kommt der Ordnerinhalt rein...");
 		File dir = new File(controller.getCurrentFolder());
 		folderDisplay.setText(controller.getFilesOfDir(controller.getCurrentFolder()));
@@ -132,10 +135,10 @@ public class ExplorerPanel extends JPanel implements IObserver{
 
 	@Override
 	public void update(Event e) {
-		
-		//textField_title.setText(controller.getCurrentFolder());
-		textField_title.setText("aovijsdiofjdsiofjifj");
+		textField_title.setText(controller.getCurrentFolder());
+		folderDisplay.setText(controller.getCurrentFolder());
 		repaint();
+		validate();
 	}
 	
 }
