@@ -99,6 +99,7 @@ public class ExplorerPanel extends JPanel implements IObserver{
 				controller.notifyObservers();
 			} });	
 		
+		
 		backButtonPanel.add(backButton);
 		gc = new GridBagConstraints();
 		gc.anchor = GridBagConstraints.LINE_START;
